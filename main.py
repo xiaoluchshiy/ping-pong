@@ -64,6 +64,9 @@ game = 1
 finish = False
 font.init()
 font1 = font.SysFont('Arial', 50)
+loose_l = font1.render('left player loose!', True, (0, 255, 180))
+loose_r = font1.render('right player loose!', True, (0, 255, 180))
+
 
 while game:
     for i in event.get():
@@ -80,6 +83,14 @@ while game:
 
         ball.reset()
         ball.move(left_l, right_r)
+
+        if ball.rect.x >= 1230:
+            finish = True
+            window.blit(loose_r, (500, 320))
+
+        if ball.rect.x <= 0:
+            finish = True
+            window.blit(loose_l, (500, 320))
 
     clock.tick(60)
     display.update()
