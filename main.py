@@ -53,11 +53,11 @@ class Ball(Spritik):
 window = display.set_mode((1280, 720))
 display.set_caption('пинг-понг')
 
-background = transform.scale(image.load('new_year_background.jpg'), (1280, 720))
+background = transform.scale(image.load('snow.jpg'), (1280, 720))
 
 left_l = Player('platform.png', 10, 310, 5, 30, 100)
 right_r = Player('platform.png', 1240, 310, 5, 30, 100)
-ball = Ball('ball.png', 590, 260, 5, 5, 50, 50)
+ball = Ball('ball.png', 590, 260, 7, 7, 50, 50)
 
 clock = time.Clock()
 game = 1
