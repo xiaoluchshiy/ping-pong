@@ -34,13 +34,30 @@ class Player(Spritik):
             self.rect.y += self.speed
 
 
+class Ball(Spritik):
+    def __init__(self, s_image, x, y, speed_x, speed_y, weight, high):
+        super().__init__(s_image=s_image, x=x, y=y, speed=0, weight=weight, high=high)
+        self.speed_x = speed_x
+        self.speed_y = speed_y
+
+    def move(self, player1, plater2):
+        self.rect.x += self.speed_x
+        self.rect.y += self.speed_y
+
+        if self.rect.y <= 5 or self.rect.y >= 665:
+            self.speed_y = -self.speed_y
+        if sprite.collide_rect(player1, self) or sprite.collide_rect(plater2, self):
+            self.speed_x = -self.speed_x
+
+
 window = display.set_mode((1280, 720))
 display.set_caption('пинг-понг')
 
 background = transform.scale(image.load('new_year_background.jpg'), (1280, 720))
 
 left_l = Player('platform.png', 10, 310, 5, 30, 100)
-right_r = Player('platform.png', 1240, 600, 5, 30, 100)
+right_r = Player('platform.png', 1240, 310, 5, 30, 100)
+ball = Ball('ball.png', 590, 260, 5, 5, 50, 50)
 
 clock = time.Clock()
 game = 1
@@ -60,6 +77,9 @@ while game:
 
         right_r.reset()
         right_r.move_right()
+
+        ball.reset()
+        ball.move(left_l, right_r)
 
     clock.tick(60)
     display.update()
